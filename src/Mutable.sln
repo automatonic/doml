@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutable", "Mutable\Mutable.csproj", "{AE3CF405-8D9B-4E6C-9321-385896DA46DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutable.Test", "Mutable.Test\Mutable.Test.csproj", "{FDEE76BB-0EA9-44DA-A800-C5561AB27921}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE3CF405-8D9B-4E6C-9321-385896DA46DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3CF405-8D9B-4E6C-9321-385896DA46DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3CF405-8D9B-4E6C-9321-385896DA46DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3CF405-8D9B-4E6C-9321-385896DA46DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDEE76BB-0EA9-44DA-A800-C5561AB27921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDEE76BB-0EA9-44DA-A800-C5561AB27921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDEE76BB-0EA9-44DA-A800-C5561AB27921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDEE76BB-0EA9-44DA-A800-C5561AB27921}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
