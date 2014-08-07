@@ -1,7 +1,12 @@
-DOML (Dynamic Object Markup Language)
+Mutable
 ====
 
-Given a [dynamic object](http://msdn.microsoft.com/en-us/library/dd537660.aspx) `propertyBag`, and a `text` string that contains:
+> Everything changes and nothing stands still.
+>
+> -Heraclitus
+
+Immutability is a fine property of objects, and is very useful when dealing with threading, but there are
+times when one is in need of some good old-fashioned change. The `Mutable` library simply interprets text:
 
 ```csharp
 /* Define some data */
@@ -13,10 +18,15 @@ Lat = 47.6097d;
 Long = 122.3331f; //Some precision may be lost during shipping
 ```
 
-Apply the `text` assignments to the `propertyBag`:
+...into a series of calls to a delegate you supply: 
 
 ```csharp
-propertyBag.Apply(text);
+Mutable.Parse(
+  input: text, 
+  mutator: (property, value) => city[property] = value);
 ```
 
+Install via NuGet, and leave any feedback, issues, and pull requests here.
+
+Unit tests are also examples, through the magic of commenting.
 
