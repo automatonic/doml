@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Mutable
 {
-    public static class Playback
+    public sealed class Trace : IDisposable
     {
-        
+
+        public Trace()
+        {
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }

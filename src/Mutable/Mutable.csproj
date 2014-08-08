@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpectTrace.cs" />
     <Compile Include="ExpectCSharp.cs" />
     <Compile Include="ExpectCSharp.Identifier.cs" />
     <Compile Include="ExpectCSharp.Literal.cs" />
-    <Compile Include="Record.cs" />
-    <Compile Include="Playback.cs" />
+    <Compile Include="ITrace.cs" />
+    <Compile Include="Trace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

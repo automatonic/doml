@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Mutable
 {
-    public static class Record
+    public interface ITrace
     {
+        void Assign(string property, object value, string valueFormat, string comment);
     }
+
+
 }
