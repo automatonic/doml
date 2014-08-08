@@ -36,7 +36,7 @@ Unit tests are also examples, through the magic of commenting.
 
 ##Why another Markup Language?
 
-TL:DR - Mutable is YAML-like but with C# syntactic sugar and DIY semantics.
+ > *TL:DR* - Mutable is YAML-like but with C# syntactic sugar and DIY semantics.
 
 YAML is pretty succinct, and I like it alright. However, there is a ton of complexity in the parser (once you dig a bit deeper). Most implementors and users skip the "tricky" stuff and stick with nesting property assignments.
 
@@ -49,6 +49,7 @@ Sound off in an issue if you have questions/rants/suggestions.
 ##Creating a Trace
 
 While it is completely acceptable to hand code your traces, you may sometimes want to...er...well...trace them:
+
 using (var trace = new Trace())
 {
   trace.DelimitedComment("city.txt");
