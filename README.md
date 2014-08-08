@@ -28,11 +28,23 @@ using (var trace = new Trace(input: input))
 }
 ```
 
-...effectively changing an object of your choice based on the sequence of inputs. It is a super simple API for a tiny markup language (based on C#'s literal assignments).
+...effectively changing a data structure of your choice based on the sequence of inputs. Mutable is a super-simple API for a tiny markup language based on C#'s literal assignments.
 
 Install via NuGet, and leave any feedback, issues, and pull requests here.
 
 Unit tests are also examples, through the magic of commenting.
+
+##Why another Markup Language?
+
+TL:DR - Mutable is YAML-like but with C# syntactic sugar and DIY semantics.
+
+YAML is pretty succinct, and I like it alright. However, there is a ton of complexity in the parser (once you dig a bit deeper). Most implementors and users skip the "tricky" stuff and stick with nesting property assignments.
+
+Mutable seeks to be a simple, recognizable format for capturing "assignment" data and applying it to a datastructure of your choice. Plus, for the C#/NuGet world, it represents a pretty familiar syntax and "native" feel. 
+
+Through the sneaky trick of monadic parser combinators, Mutable borrows heavily from a well-understood grammar (C#) to get a leg up on representing data. If you have ever used a `const` in a program, then using C# to serialize/deserialize data shouldn't be too unfamiliar.
+
+Sound off in an issue if you have questions/rants/suggestions.
 
 ##Creating a Trace
 
@@ -82,6 +94,3 @@ In.My.Garage.I.Feel.Safe = true;
 ```
 
 The property name will be: `"In.My.Garage.I.Feel.Safe"` and you can split and interpret as you will.
-
-
-
