@@ -30,7 +30,10 @@ using (var trace = new Trace(input: input))
 
 ...effectively changing a data structure of your choice based on the sequence of inputs. Mutable is a super-simple API for a tiny markup language based on C#'s literal assignments.
 
-Install via NuGet, and leave any feedback, issues, and pull requests here.
+If that sounds interesting, the next steps are:
+ - Install via NuGet
+ - Communicate via Issues
+ - Contribute via Pull Requests
 
 Unit tests are also examples, through the magic of commenting.
 
@@ -50,6 +53,7 @@ Sound off in an issue if you have questions/rants/suggestions.
 
 While it is completely acceptable to hand code your traces, you may sometimes want to...er...well...trace them:
 
+```csharp
 using (var trace = new Trace())
 {
   trace.DelimitedComment("city.txt");
@@ -63,6 +67,7 @@ using (var trace = new Trace())
     path: "city.txt",
     contents: trace.ToString());
 }
+```
 
 ##Handling "Duplicates"
 
