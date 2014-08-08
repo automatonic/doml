@@ -88,7 +88,7 @@ How you handle your "assignments" is totally up to you. While Mutable borrows fr
  - Partition the assignments using `ILookup<string, object>`
  - Interpret as a collection/array
   
- It is up to you and your delegate. 
+It is up to you and your delegate. 
 
 ##"Nested" Property Assignments
 
