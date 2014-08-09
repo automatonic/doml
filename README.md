@@ -21,11 +21,9 @@ Long = 122.3331f; //Some precision may be lost during shipping
 ```csharp
 var input = File.ReadAllText("city.txt");
 var city = new Dictionary<string, object>();
-using (var trace = new Trace(input: input))
-{
-  trace.Retrace(into: 
-    (property, value, comment) => city[property] = value);
-}
+Trace.Retrace(
+  from: input,
+  into: (property, value, comment) => city[property] = value);
 ```
 
 ...effectively changing a data structure of your choice based on the sequence of inputs. Mutable is a super-simple API for a tiny markup language based on C#'s literal assignments.
