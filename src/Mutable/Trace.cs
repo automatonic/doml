@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mutable
 {
-    public sealed class Trace : IDisposable
+    public static class Trace
     {
-
-        public Trace()
+        public static ITraceable Begin()
         {
-        }
-
-        public void Dispose()
-        {
+            return new Traceable();
         }
     }
 }

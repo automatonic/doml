@@ -47,9 +47,10 @@
     <Compile Include="ExpectCSharp.cs" />
     <Compile Include="ExpectCSharp.Identifier.cs" />
     <Compile Include="ExpectCSharp.Literal.cs" />
-    <Compile Include="ITrace.cs" />
+    <Compile Include="ITraceable.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Traceable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
