@@ -16,14 +16,12 @@ namespace Mutable
         /// <summary>
         /// Creates a parser for an identifier
         /// </summary>
-        /// <remarks>
-        /// identifier:
-        ///   available-identifier
-        ///   @ identifier-or-keyword
-        /// </remarks>
         /// <returns>the parser</returns>
         public static IParser<char, string> Identifier()
         {
+            // identifier:
+            //   available-identifier
+            //   @ identifier-or-keyword
             return Expect.OneOf(
                 AvailableIdentifier(), 
                 Expect.Concatenation(
@@ -36,13 +34,11 @@ namespace Mutable
         /// <summary>
         /// Creates a parser for an identifier that isn't a keyword
         /// </summary>
-        /// <remarks>
-        ///  available-identifier:
-        ///    An identifier-or-keyword that is not a keyword
-        /// </remarks>
         /// <returns></returns>
         public static IParser<char, string> AvailableIdentifier()
-        {
+        {   
+            //  available-identifier:
+            //    An identifier-or-keyword that is not a keyword   
             return IdentifierOrKeyWord()
                 .Select(parse => {
                     if (Keywords.Contains(parse.Node))
@@ -139,12 +135,11 @@ namespace Mutable
         /// <summary>
         /// Creates a parser for any valid identifier and/or keyword
         /// </summary>
-        /// identifier-or-keyword:
-        ///   identifier-start-character   identifier-part-charactersopt
-        /// </remarks>
         /// <returns></returns>
         public static IParser<char, string> IdentifierOrKeyWord()
         {
+            /// identifier-or-keyword:
+            ///   identifier-start-character   identifier-part-charactersopt
             return Expect.Concatenation(
                 IdentifierStartCharacter(),
                 IdentifierPartCharacter()
@@ -156,16 +151,15 @@ namespace Mutable
         /// <summary>
         /// Creates a parser for identifier-start-character
         /// </summary>
-        /// identifier-start-character:
-        ///   letter-character
-        ///   _ (the underscore character U+005F)
-        /// letter-character:
-        ///   A Unicode character of classes Lu, Ll, Lt, Lm, Lo, or Nl 
-        ///   A unicode-escape-sequence representing a character of classes Lu, Ll, Lt, Lm, Lo, or Nl
-        /// </remarks>
         /// <returns></returns>
         public static IParser<char, char> IdentifierStartCharacter()
         {
+            // identifier-start-character:
+            //   letter-character
+            //   _ (the underscore character U+005F)
+            // letter-character:
+            //   A Unicode character of classes Lu, Ll, Lt, Lm, Lo, or Nl 
+            //   A unicode-escape-sequence representing a character of classes Lu, Ll, Lt, Lm, Lo, or Nl
             return Expect.Char(symbol =>
             {
                 if (symbol == '_')
@@ -190,31 +184,30 @@ namespace Mutable
         /// <summary>
         /// Creates a Parser for identifier-part-character
         /// </summary>
-        /// identifier-part-character:
-        ///   letter-character
-        ///   decimal-digit-character
-        ///   connecting-character
-        ///   combining-character
-        ///   formatting-character
-        /// letter-character:
-        ///   A Unicode character of classes Lu, Ll, Lt, Lm, Lo, or Nl 
-        ///   A unicode-escape-sequence representing a character of classes Lu, Ll, Lt, Lm, Lo, or Nl
-        /// combining-character:
-        ///   A Unicode character of classes Mn or Mc 
-        ///   A unicode-escape-sequence representing a character of classes Mn or Mc
-        /// decimal-digit-character:
-        ///   A Unicode character of the class Nd 
-        ///   A unicode-escape-sequence representing a character of the class Nd
-        /// connecting-character:
-        ///   A Unicode character of the class Pc 
-        ///   A unicode-escape-sequence representing a character of the class Pc
-        /// formatting-character:
-        ///   A Unicode character of the class Cf 
-        ///   A unicode-escape-sequence representing a character of the class Cf
-        /// </remarks>
         /// <returns></returns>
         public static IParser<char, char> IdentifierPartCharacter()
         {
+            // identifier-part-character:
+            //   letter-character
+            //   decimal-digit-character
+            //   connecting-character
+            //   combining-character
+            //   formatting-character
+            // letter-character:
+            //   A Unicode character of classes Lu, Ll, Lt, Lm, Lo, or Nl 
+            //   A unicode-escape-sequence representing a character of classes Lu, Ll, Lt, Lm, Lo, or Nl
+            // combining-character:
+            //   A Unicode character of classes Mn or Mc 
+            //   A unicode-escape-sequence representing a character of classes Mn or Mc
+            // decimal-digit-character:
+            //   A Unicode character of the class Nd 
+            //   A unicode-escape-sequence representing a character of the class Nd
+            // connecting-character:
+            //   A Unicode character of the class Pc 
+            //   A unicode-escape-sequence representing a character of the class Pc
+            // formatting-character:
+            //   A Unicode character of the class Cf 
+            //   A unicode-escape-sequence representing a character of the class Cf
             return Expect.Char(symbol =>
             {
                 switch (CharUnicodeInfo.GetUnicodeCategory(symbol))
