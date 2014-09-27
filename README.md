@@ -51,22 +51,29 @@ I love the *idea* of YAML, but that is mostly due to the terse nature of its dat
 Say we have a program that builds up data using literals and object instantiations:
 
 ```csharp
-void Main()
+public class Program
 {
-  int i = 1;
-  MyClass m = new MyClass();
-  m.Property1 = "yes";
+  public class MyClass
+  {
+    string Property1 { get; set; }
+  }
+  static void Main(string[] args)
+  {
+    int i = 1;
+    MyClass m = new MyClass();
+    m.Property1 = "yes";
+  }
 }
 ```
 
-While we can see that data is "marked up" within the text of this program, the representation is unweildy. We are getting mired in the object accounting that is necessary to make C# strongly typed. What if we ditched everything but the assignment expressions?
+While we can see that data is "marked up" within the text of this program, the representation is unwieldy. We are getting mired in the object accounting that is necessary to make C# strongly typed. What if we ditched everything but the assignment expressions?
 
 ```csharp
 i = 1;
 m.Property1 = "yes";
 ```
 
-This is much better for terseness, but we are edging into the realm of the "dynamicly typed" languages. The type of `i` is now implicitly coming from the type of the literal value. The assignment of `m` got thrown away entirely. The C# compiler will never go for anything like this without a `dynamic` object preamble, and you would still need a `Main` function to be a valid program, etc.
+This is much better for terseness, but we are edging into the realm of the "dynamicly typed" languages. The type of `i` is now implicitly coming from the type of the literal value. The assignment of `m` got thrown away entirely. The C# compiler will never go for anything like this without a `dynamic` object preamble, and you would still need a `Main` function and class details to be a valid program, etc.
 
 But what if we disconnected the C# Parser from the C# compiler, and allowed dynamic assignments with minimal boilerplate?
 
