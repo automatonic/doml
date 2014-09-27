@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/automatonic/literal/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/automatonic/literal</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/8d6e52c85a03c0aeb9b8450ec5a9c5c8.png?s=256</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Bleeding edge NuGet support</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>data markup language .net c#</tags>
+  </metadata>
+</package>
