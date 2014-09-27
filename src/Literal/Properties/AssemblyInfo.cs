@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Literal")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A tiny markup language based on (dynamic) C# literal assignments")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Elliott B. Edwards (automatonic)")]
 [assembly: AssemblyProduct("Literal")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
