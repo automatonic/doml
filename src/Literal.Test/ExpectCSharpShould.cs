@@ -6,7 +6,7 @@ using Xunit;
 using FluentAssertions;
 using Mona;
 
-namespace Mutable
+namespace Literal
 {
     public class ExpectCSharpShould
     {

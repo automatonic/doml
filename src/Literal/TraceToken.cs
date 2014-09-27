@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mutable
+namespace Literal
 {
-    public static class Playback
+    public abstract class TraceToken
     {
-        
     }
 }

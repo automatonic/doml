@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mutable
+namespace Literal
 {
-    public static class Record
+    public sealed class EmptyLine : TraceToken
     {
+        internal EmptyLine()
+        {
+
+        }
     }
 }
