@@ -1,10 +1,7 @@
-#Mutable
+#Literal
+> "Hard Code" your data with impunity
 
-> Everything changes and nothing stands still.
->
-> -Heraclitus
-
-The `Mutable` library interprets text-based "traces":
+The `Literal` library stores your data as literal assignments:
 
 ```csharp
 /* city.txt */
@@ -16,57 +13,82 @@ Lat = 47.6097d;
 Long = 122.3331f; //Some precision may be lost during shipping
 ```
 
-...as arguments for a series of calls to a delegate you supply: 
+...which can be read as a stream of strongly typed tokens (i.e. a `Trace`): 
 
 ```csharp
 var input = File.ReadAllText("city.txt");
-var city = new Dictionary<string, object>();
-using (var trace = new Trace(input: input))
+var city = new Dictionary<string, object>(
+  Trace
+    .Tokenize(input)
+    .OfType<LiteralAssignment>() //Ignore delimited comment tokens
+    .Select(assigment => 
+      new KeyValuePair<string, object>(
+        key: assignment.Property, 
+        value: assigment.Value))
+);
+
+Console.WriteLine(city["Country"]); //outputs "USA"
+
+```
+##Features
+
+ - Store data with familiar syntax (C# assignments and literal values)
+ - Value types are inferred and automatically parsed into C# primitive types (just as in a C# program)
+ - Flexible DIY semantics for properties
+    - Support for "dynamic" property assignment (a property is declared/defined simply by assigning a literal to it)
+    - Support for "nested" properties ("Parent.Child.Property = true;")
+ - Native support for .NET languages
+ - Deployed as a NuGet package
+
+##Examples
+
+The unit tests are your best bet for up to date (and working!) examples.
+
+##Motivation
+
+I love the *idea* of YAML, but that is mostly due to the terse nature of its data representation. Why can't a C# developer represent data in a more familiar, and yet flexible way? 
+
+Say we have a program that builds up data using literals and object instantiations:
+
+```csharp
+void Main()
 {
-  trace.Retrace(into: 
-    (property, value, comment) => city[property] = value);
+  int i = 1;
+  MyClass m = new MyClass();
+  m.Property1 = "yes";
 }
 ```
 
-...effectively changing a data structure of your choice based on the sequence of inputs. Mutable is a super-simple API for a tiny markup language based on C#'s literal assignments.
-
-If that sounds interesting, the next steps are:
- - Install via NuGet
- - Communicate via Issues
- - Contribute via Pull Requests
-
-Unit tests are also examples, through the magic of commenting.
-
-##Why another Markup Language?
-
- > *TL:DR* - Mutable is YAML-like but with C# syntactic sugar and DIY semantics.
-
-YAML is pretty succinct, and I like it alright. However, there is a ton of complexity in the parser (once you dig a bit deeper). Most implementors and users skip the "tricky" stuff and stick with nesting property assignments.
-
-Mutable seeks to be a simple, recognizable format for capturing "assignment" data and applying it to a datastructure of your choice. Plus, for the C#/NuGet world, it represents a pretty familiar syntax and "native" feel. 
-
-Through the sneaky trick of monadic parser combinators, Mutable borrows heavily from a well-understood grammar (C#) to get a leg up on representing data. If you have ever used a `const` in a program, then using C# to serialize/deserialize data shouldn't be too unfamiliar.
-
-Sound off in an issue if you have questions/rants/suggestions.
-
-##Creating a Trace
-
-While it is completely acceptable to hand code your traces, you may sometimes want to...er...well...trace them:
+While we can see that data is "marked up" within the text of this program, the representation is unweildy. We are getting mired in the object accounting that is necessary to make C# strongly typed. What if we ditched everything but the assignment expressions?
 
 ```csharp
-using (var trace = new Trace())
-{
-  trace.DelimitedComment("city.txt");
-  trace.Assignment("City", "Seattle", "Fairly recognizable");
-  trace.Assignment("State", "Washington", "Note: Not Washington DC");
-  trace.Assignment("Country", "USA"); 
-  trace.Assignment("IsRaining", "true", "Stereotype!");
-  trace.Assignment("Lat", 47.6097d);
-  trace.Assignment("Long", 122.3331f, "Some precision may be lost during shipping");
-  File.WriteAllText(
-    path: "city.txt",
-    contents: trace.ToString());
-}
+i = 1;
+m.Property1 = "yes";
+```
+
+This is much better for terseness, but we are edging into the realm of the "dynamicly typed" languages. The type of `i` is now implicitly coming from the type of the literal value. The assignment of `m` got thrown away entirely. The C# compiler will never go for anything like this without a `dynamic` object preamble, and you would still need a `Main` function to be a valid program, etc.
+
+But what if we disconnected the C# Parser from the C# compiler, and allowed dynamic assignments with minimal boilerplate?
+
+Well, in that case, we would have a `Literal` markup language that feels terse, dynamic, and yet somehow familiar.
+
+##Building a Trace
+
+While it is completely acceptable to hand code your traces (as they are simple strings), the `TraceBuilder` can be used to facilitate this process:
+
+```csharp
+var traceBuilder = new TraceBuilder();
+traceBuilder.AppendDelimitedComment("city.txt");
+traceBuilder.AppendAssignment("City", "Seattle", "Fairly recognizable");
+traceBuilder.AppendAssignment("State", "Washington", "Note: Not Washington DC");
+traceBuilder.AppendAssignment("Country", "USA"); 
+traceBuilder.AppendAssignment("IsRaining", "true", "Stereotype!");
+traceBuilder.AppendAssignment("Lat", 47.6097d);
+traceBuilder.AppendAssignment("Long", 122.3331f, "Some precision may be lost during shipping");
+File.WriteAllText(
+  path: "city.txt",
+  contents: traceBuilder.ToString());
+
 ```
 
 ##Handling "Duplicates"
@@ -88,7 +110,7 @@ How you handle your "assignments" is totally up to you. While Mutable borrows fr
  - Partition the assignments using `ILookup<string, object>`
  - Interpret as a collection/array
   
-It is up to you and your delegate. 
+It is up to you. 
 
 ##"Nested" Property Assignments
 
