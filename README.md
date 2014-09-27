@@ -59,9 +59,9 @@ public class Program
   }
   static void Main(string[] args)
   {
-    int i = 1;
-    MyClass m = new MyClass();
-    m.Property1 = "yes";
+    int Count = 1; //Disregard the variable casing
+    MyClass Instance = new MyClass(); //Disregard the variable casing
+    Instance.Property1 = "yes";
   }
 }
 ```
@@ -69,8 +69,8 @@ public class Program
 While we can see that data is "marked up" within the text of this program, the representation is unwieldy. We are getting mired in the object accounting that is necessary to make C# strongly typed. What if we ditched everything but the assignment expressions?
 
 ```csharp
-i = 1;
-m.Property1 = "yes";
+Count = 1;
+Instance.Property1 = "yes";
 ```
 
 This is much better for terseness, but we are edging into the realm of the "dynamicly typed" languages. The type of `i` is now implicitly coming from the type of the literal value. The assignment of `m` got thrown away entirely. The C# compiler will never go for anything like this without a `dynamic` object preamble, and you would still need a `Main` function and class details to be a valid program, etc.
