@@ -40,6 +40,9 @@ configuration: Release
 #  - Debug
 #  - Release
 
+before_build:
+  nuget restore src\literal.sln
+
 build:
   project: src/Literal.sln
   publish_nuget: true
