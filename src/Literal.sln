@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutable", "Mutable\Mutable.csproj", "{AE3CF405-8D9B-4E6C-9321-385896DA46DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Literal", "Literal\Literal.csproj", "{AE3CF405-8D9B-4E6C-9321-385896DA46DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutable.Test", "Mutable.Test\Mutable.Test.csproj", "{FDEE76BB-0EA9-44DA-A800-C5561AB27921}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Literal.Test", "Literal.Test\Literal.Test.csproj", "{FDEE76BB-0EA9-44DA-A800-C5561AB27921}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

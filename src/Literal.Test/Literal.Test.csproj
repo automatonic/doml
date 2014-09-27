@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.core.2.0.0-beta-build2700\build\portable-net45+win+wpa81+wp80\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.0.0-beta-build2700\build\portable-net45+win+wpa81+wp80\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE3CF405-8D9B-4E6C-9321-385896DA46DF}</ProjectGuid>
+    <ProjectGuid>{FDEE76BB-0EA9-44DA-A800-C5561AB27921}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mutable</RootNamespace>
-    <AssemblyName>Mutable</AssemblyName>
+    <AssemblyName>Mutable.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>6c6acbbe</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Mona">
       <HintPath>..\packages\Mona.0.1.18.0\lib\net451\Mona.dll</HintPath>
     </Reference>
@@ -41,21 +49,37 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\packages\xunit.abstractions.2.0.0-beta-build2700\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>..\packages\xunit.assert.2.0.0-beta-build2700\lib\portable-net45+win+wpa81+wp80+monoandroid+monotouch10\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\packages\xunit.core.2.0.0-beta-build2700\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid\xunit.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpectTrace.cs" />
-    <Compile Include="ExpectCSharp.cs" />
-    <Compile Include="ExpectCSharp.Identifier.cs" />
-    <Compile Include="ExpectCSharp.Literal.cs" />
-    <Compile Include="ITraceable.cs" />
-    <Compile Include="Trace.cs" />
+    <Compile Include="ExpectCSharpShould.cs" />
+    <Compile Include="PlaybackShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Traceable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Literal\Literal.csproj">
+      <Project>{ae3cf405-8d9b-4e6c-9321-385896da46df}</Project>
+      <Name>Literal</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.core.2.0.0-beta-build2700\build\portable-net45+win+wpa81+wp80\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.0.0-beta-build2700\build\portable-net45+win+wpa81+wp80\xunit.core.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

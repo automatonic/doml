@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace Mutable
+namespace Literal
 {
     /// <summary>
     /// Interpretation of the C# grammar listed at
