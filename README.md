@@ -1,6 +1,8 @@
 #Literal
 > "Hard Code" your data with impunity
 
+[![Build status](https://ci.appveyor.com/api/projects/status/fh9vtlc97gkh04al/branch/master)](https://ci.appveyor.com/project/automatonic/literal/branch/master)
+
 The `Literal` library stores your data as literal assignments:
 
 ```csharp
