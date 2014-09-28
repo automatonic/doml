@@ -16,21 +16,33 @@ namespace Literal
         [InlineData("_97")]
         [InlineData("MonaLisa")]
         [InlineData("@class")]
-        public void MatchIdentifier(string literal)
+        public void MatchIdentifier(string input)
         {
-            var parse = ExpectCSharp.Identifier().Parse(literal);
+            var parse = ExpectCSharp.Identifier().Parse(input);
             parse.Succeeded().Should().BeTrue();
-            parse.Node.Should().Be(literal);
+            parse.Node.Should().Be(input);
         }
 
         [Theory]
         [InlineData("9")]
         [InlineData("^")]
         [InlineData("class")]
-        public void RejectIdentifier(string literal)
+        public void RejectIdentifier(string input)
         {
-            var parse = ExpectCSharp.Identifier().Parse(literal);
+            var parse = ExpectCSharp.Identifier().Parse(input);
             parse.Succeeded().Should().BeFalse();
+        }
+
+
+        [Theory]
+        [InlineData("/*a*/")]
+        [InlineData("/**/")]
+        [InlineData("/*a\r\nb*/")]
+        public void MatchDelimitedComment(string input)
+        {
+            var parse = ExpectCSharp.DelimitedComment().Parse(input);
+            parse.Succeeded().Should().BeTrue();
+            parse.Node.Should().Be(input.Substring(2,input.Length -4), because: "we ignore the comment prefix/suffix");
         }
     }
 }

@@ -12,6 +12,13 @@ namespace Literal
         public static IEnumerable<TraceToken> Tokenize(string from)
         {
             var parser = ExpectTrace.Input();
+            //Normalize ending with a newline, taking care not to duplicate one
+            from =
+                string.Concat(
+                    from.TrimEnd('\u000D', '\u000A', '\u2028', '\u2029'),
+                    '\u000D',
+                    '\u000A'
+                );
             var parse = parser.Parse(from);
             if (parse.Succeeded())
             {

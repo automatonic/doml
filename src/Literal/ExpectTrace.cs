@@ -18,7 +18,7 @@ namespace Literal
                 .OneOf(
                     EmptyLine(),
                     DelimitedComment(),
-                    Assignment()
+                    LiteralAssignment()
                 )
                 .ZeroOrMore();
         }
@@ -34,19 +34,38 @@ namespace Literal
 
         public static IParser<char, TraceToken> DelimitedComment()
         {
+            return ExpectCSharp
+                .DelimitedComment()
+                .SelectNode(comment => new DelimitedComment(comment) as TraceToken);
+        }
+
+        public static IParser<char, TraceToken> LiteralAssignment()
+        {
             return Expect.Concatenation(
+                PropertyChain(),
                 ExpectCSharp.Whitespace(),
-                ExpectCSharp.NewLine(),
-                (ws, nl) => new DelimitedComment("") as TraceToken
+                Expect.Char('='),
+                ExpectCSharp.Whitespace(),
+                ExpectCSharp.Literal(),
+                ExpectCSharp.Whitespace(),
+                ExpectCSharp.SingleLineComment(),
+                (property, ws1, eq, ws2, value, ws3, comment) => new LiteralAssignment(property, value, comment) as TraceToken
                 );
         }
 
-        public static IParser<char, TraceToken> Assignment()
+        public static IParser<char, IEnumerable<string>> PropertyChain()
         {
             return Expect.Concatenation(
-                ExpectCSharp.Whitespace(),
-                ExpectCSharp.NewLine(),
-                (ws, nl) => new LiteralAssignment(new string[] {}, null, "") as TraceToken
+                ExpectCSharp.Identifier(),
+                Expect
+                    .Concatenation(
+                        Expect.Char('.'),
+                        ExpectCSharp.Identifier(),
+                        (dot, identifier) => identifier)
+                    .ZeroOrMore(),
+                (property, chain) => 
+                    new string[] { property }
+                        .Concat(chain)
                 );
         }
     }

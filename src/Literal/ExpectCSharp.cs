@@ -80,6 +80,67 @@ namespace Literal
                         return Char.GetUnicodeCategory(symbol) == UnicodeCategory.SpaceSeparator;
                 }
             });
-        }      
+        }
+
+        public static IParser<char, string> DelimitedComment()
+        {
+            // delimited-comment:
+            //   /*   delimited-comment-characters^opt   */
+            // delimited-comment-characters:
+            //   delimited-comment-character
+            //   delimited-comment-characters delimited-comment-character
+            // delimited-comment-character:
+            //   not-asterisk
+            //   * not-slash
+            // not-asterisk:
+            //   Any Unicode character except *
+            // not-slash:
+            //   Any Unicode character except /
+            char previous = default(char);
+            return Expect.Concatenation(
+                Expect.String("/*"),
+                Expect.While<char>((input, index) =>
+                {
+                    var result = input != '/' && previous != '*';
+                    previous = input;
+                    return result;
+                }),
+                Expect.String("/"),
+                (prefix, value, suffix) => new string(value.ToArray()).TrimEnd('*')
+                );
+        }
+
+        public static IParser<char, string> SingleLineComment()
+        {
+            // single-line-comment:
+            //   "//"input-characters
+            // input-characters:
+            //   input-character              
+            //   input-characters input-character
+            // input-character:
+            //   Any Unicode character except a new-line-character
+            // new-line-character:
+            //   Carriage return character (U+000D)
+            //  Line feed character (U+000A)
+            //  Line separator character (U+2028)
+            //  Paragraph separator character (U+2029)
+            return Expect.Concatenation(
+                Expect.String("//"),
+                Expect.While<char>(input =>
+                {
+                    switch (input)
+                    {
+                        case '\u000D':
+                        case '\u000A':
+                        case '\u2028':
+                        case '\u2029':
+                            return true;
+                        default:
+                            return false;
+                    }
+                }),
+                (prefix, value) => new string(value.ToArray())
+                );
+        }
     }
 }
