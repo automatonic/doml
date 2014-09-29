@@ -89,6 +89,17 @@ namespace Literal
             // delimited-comment-characters:
             //   delimited-comment-character
             //   delimited-comment-characters delimited-comment-character
+            return Expect.Concatenation(
+                Expect.String("/*"),
+                DelimitedCommentCharacter()
+                    .ZeroOrMore(characters => string.Concat(characters)),
+                Expect.String("*/"),
+                (prefix, value, suffix) => value
+                );
+        }
+
+        public static IParser<char, string> DelimitedCommentCharacter()
+        {
             // delimited-comment-character:
             //   not-asterisk
             //   * not-slash
@@ -96,17 +107,15 @@ namespace Literal
             //   Any Unicode character except *
             // not-slash:
             //   Any Unicode character except /
-            char previous = default(char);
-            return Expect.Concatenation(
-                Expect.String("/*"),
-                Expect.While<char>((input, index) =>
-                {
-                    var result = input != '/' && previous != '*';
-                    previous = input;
-                    return result;
-                }),
-                Expect.String("/"),
-                (prefix, value, suffix) => new string(value.ToArray()).TrimEnd('*')
+            return Expect.OneOf(
+                    Expect //not-asterisk
+                        .Char(input => input != '*')
+                        .SelectNode(input => input.ToString()),
+                    Expect.Concatenation(
+                        Expect.Char('*'),
+                        Expect.Char(input => input != '/'),
+                        (star, notSlash) => string.Concat(star, notSlash)
+                    )
                 );
         }
 
