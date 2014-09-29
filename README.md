@@ -1,4 +1,7 @@
 #Literal
+
+![Mona](http://www.gravatar.com/avatar/7444a33ea23811592611d964660b7fc6.jpeg?s=128)
+
 > "Hard Code" your data with impunity
 
 [![Build status](https://ci.appveyor.com/api/projects/status/fh9vtlc97gkh04al/branch/master)](https://ci.appveyor.com/project/automatonic/literal/branch/master)
