@@ -1,3 +1,6 @@
+> Deprecated. I have seen the light, and it has all the features I wanted...plus already coded/supported :}
+> https://github.com/toml-lang/toml
+
 #Literal
 
 ![Mona](http://www.gravatar.com/avatar/7444a33ea23811592611d964660b7fc6.jpeg?s=128)
